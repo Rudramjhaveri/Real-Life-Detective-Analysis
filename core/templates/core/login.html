@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login - Data Detective{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4">
+    <div class="glass p-10 rounded-2xl w-full max-w-md relative overflow-hidden animate-fade-in-up">
+        <!-- Ambient Glow -->
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none">
+        </div>
+        <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none">
+        </div>
+
+        <div class="text-center mb-8 relative z-10">
+            <h2 class="text-3xl font-bold mb-2">Welcome Back 🕵️</h2>
+            <p class="text-slate-400">Ready to solve another mystery?</p>
+        </div>
+
+        <form method="post" class="space-y-6 relative z-10">
+            {% csrf_token %}
+
+            <div class="relative group">
+                <input type="text" name="username" id="username" required
+                    class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                    placeholder=" " />
+                <label for="username"
+                    class="absolute left-4 top-4 text-slate-400 text-sm transition-all duration-200 peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">
+                    Email Address
+                </label>
+            </div>
+
+            <div class="relative group">
+                <input type="password" name="password" id="password" required
+                    class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                    placeholder=" " />
+                <label for="password"
+                    class="absolute left-4 top-4 text-slate-400 text-sm transition-all duration-200 peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">
+                    Password
+                </label>
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" class="rounded bg-slate-800 border-slate-600 text-cyan-500 focus:ring-0">
+                    <span class="text-slate-400">Remember me</span>
+                </label>
+                <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">Forgot Password?</a>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-cyan-500 hover:bg-cyan-600 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all transform hover:-translate-y-1">
+                Sign In
+            </button>
+        </form>
+
+
+
+        <p class="text-center mt-6 text-slate-400 relative z-10">
+            Don't have an account? <a href="/register"
+                class="text-white hover:underline decoration-cyan-500 underline-offset-4">Register</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

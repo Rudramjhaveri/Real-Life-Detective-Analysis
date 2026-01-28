@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Register - Data Detective{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4 py-10">
+    <div class="glass p-10 rounded-2xl w-full max-w-md relative overflow-hidden animate-fade-in-up">
+
+        <div class="text-center mb-8 relative z-10">
+            <h2 class="text-3xl font-bold mb-2">Join the Force 🚀</h2>
+            <p class="text-slate-400">Create your detective profile.</p>
+        </div>
+
+        <form method="post" class="space-y-5 relative z-10">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="relative group">
+                    <input type="text" name="first_name" id="first_name" required
+                        class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                        placeholder=" " />
+                    <label for="first_name"
+                        class="absolute left-4 top-4 text-slate-400 text-sm transition-all peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">First
+                        Name</label>
+                </div>
+                <div class="relative group">
+                    <input type="text" name="last_name" id="last_name" required
+                        class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                        placeholder=" " />
+                    <label for="last_name"
+                        class="absolute left-4 top-4 text-slate-400 text-sm transition-all peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">Last
+                        Name</label>
+                </div>
+            </div>
+
+            <div class="relative group">
+                <input type="email" name="email" id="email" required
+                    class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                    placeholder=" " />
+                <label for="email"
+                    class="absolute left-4 top-4 text-slate-400 text-sm transition-all peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">Email
+                    Address</label>
+            </div>
+
+            <div class="relative group">
+                <input type="password" name="password" id="password" required oninput="checkStrength(this.value)"
+                    class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                    placeholder=" " />
+                <label for="password"
+                    class="absolute left-4 top-4 text-slate-400 text-sm transition-all peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">Password</label>
+            </div>
+
+            <!-- Strength Meter -->
+            <div class="h-1 w-full bg-slate-700 rounded-full overflow-hidden">
+                <div id="strength-bar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
+            </div>
+            <p id="strength-text" class="text-xs text-right text-slate-500">Strength: Weak</p>
+
+            <div class="relative group">
+                <input type="password" name="confirm_password" id="confirm_password" required
+                    class="w-full bg-slate-800/50 border border-slate-600 rounded-lg px-4 pt-5 pb-2 text-white outline-none focus:border-cyan-500 transition-colors peer"
+                    placeholder=" " />
+                <label for="confirm_password"
+                    class="absolute left-4 top-4 text-slate-400 text-sm transition-all peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-cyan-400 peer[:not(:placeholder-shown)]:top-1.5 peer[:not(:placeholder-shown)]:text-xs">Confirm
+                    Password</label>
+            </div>
+
+            <button type="submit"
+                class="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-600 font-bold text-white shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transform hover:-translate-y-0.5 transition-all">
+                Create Account
+            </button>
+        </form>
+
+
+
+        <p class="text-center mt-6 text-slate-400 relative z-10">
+            Already have an account? <a href="/login"
+                class="text-white hover:underline decoration-cyan-500 underline-offset-4">Login</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    function checkStrength(password) {
+        const bar = document.getElementById('strength-bar');
+        const text = document.getElementById('strength-text');
+        let strength = 0;
+
+        if (password.length > 5) strength += 1;
+        if (password.length > 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[0-9]/.test(password)) strength += 1;
+        if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+
+        if (strength <= 2) {
+            bar.style.width = '30%';
+            bar.className = 'h-full bg-red-500 transition-all duration-300';
+            text.innerText = 'Strength: Weak';
+            text.className = 'text-xs text-right text-red-500';
+        } else if (strength <= 4) {
+            bar.style.width = '60%';
+            bar.className = 'h-full bg-yellow-500 transition-all duration-300';
+            text.innerText = 'Strength: Medium';
+            text.className = 'text-xs text-right text-yellow-500';
+        } else {
+            bar.style.width = '100%';
+            bar.className = 'h-full bg-green-500 transition-all duration-300';
+            text.innerText = 'Strength: Strong';
+            text.className = 'text-xs text-right text-green-500';
+        }
+    }
+</script>
+{% endblock %}

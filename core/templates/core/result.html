@@ -1,0 +1,94 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Case Solved! - Data Detective{% endblock %}
+
+{% block content %}
+<div class="min-h-[85vh] flex items-center justify-center px-4 relative overflow-hidden">
+
+    <!-- Confetti Canvas (handled by JS later, or simple CSS animation for now) -->
+    <div class="absolute inset-0 pointer-events-none">
+        <!-- Floating Particles -->
+        <div class="particle bg-yellow-400 w-2 h-2 absolute top-0 left-1/4 animate-fall"></div>
+        <div class="particle bg-cyan-400 w-2 h-2 absolute top-0 left-1/2 animate-fall delay-500"></div>
+        <div class="particle bg-purple-400 w-2 h-2 absolute top-0 left-3/4 animate-fall delay-1000"></div>
+    </div>
+
+    <div class="glass p-10 md:p-16 rounded-3xl w-full max-w-3xl text-center relative z-10 animate-scale-in">
+
+        <div
+            class="inline-block p-4 rounded-full bg-green-500/20 text-green-400 text-6xl mb-6 shadow-[0_0_30px_rgba(34,197,94,0.3)] animate-bounce-slow">
+            🏆
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold font-heading mb-4 text-white">Case Solved!</h1>
+        <p class="text-xl text-slate-300 mb-8">Excellent work, Detective. You've uncovered the truth.</p>
+
+        <!-- Rewards -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+            <div class="bg-slate-800/50 p-6 rounded-2xl border border-white/5">
+                <div class="text-sm text-slate-400 uppercase tracking-wider mb-1">XP Earned</div>
+                <div class="text-3xl font-bold text-yellow-400">+500 XP</div>
+            </div>
+            <div class="bg-slate-800/50 p-6 rounded-2xl border border-white/5">
+                <div class="text-sm text-slate-400 uppercase tracking-wider mb-1">Accuracy</div>
+                <div class="text-3xl font-bold text-green-400">100%</div>
+            </div>
+            <div class="bg-slate-800/50 p-6 rounded-2xl border border-white/5 col-span-2 md:col-span-1">
+                <div class="text-sm text-slate-400 uppercase tracking-wider mb-1">Badge</div>
+                <div class="text-3xl font-bold text-purple-400">Master Mind</div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+            <button
+                class="w-full md:w-auto px-8 py-4 rounded-xl bg-[#0077b5] hover:bg-[#006399] text-white font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-[#0077b5]/30">
+                <span>in</span> Share on LinkedIn
+            </button>
+            <a href="/dashboard"
+                class="w-full md:w-auto px-8 py-4 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold transition-all">
+                Next Case &rarr;
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    @keyframes fall {
+        0% {
+            transform: translateY(-10vh) rotate(0deg);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(110vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .animate-fall {
+        animation: fall 3s linear infinite;
+    }
+
+    @keyframes scale-in {
+        0% {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animate-scale-in {
+        animation: scale-in 0.5s ease-out forwards;
+    }
+
+    .animate-bounce-slow {
+        animation: bounce 3s infinite;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Leaderboard - Data Detective{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+
+    <div class="text-center mb-12 animate-fade-in-up">
+        <h1 class="text-4xl md:text-5xl font-bold font-heading mb-4">Global Leaderboard 🌍</h1>
+        <p class="text-slate-400 text-lg">See who's cracking the most cases.</p>
+    </div>
+
+    <!-- Top 3 Podium (Mock) -->
+    <div class="flex items-end justify-center gap-4 mb-16 animate-fade-in-up delay-100">
+        <!-- 2nd Place -->
+        <div class="text-center">
+            <div
+                class="w-20 h-20 mx-auto rounded-full bg-slate-700 border-4 border-slate-500 flex items-center justify-center text-3xl relative mb-2">
+                🥈
+                <div
+                    class="absolute -bottom-2 bg-slate-800 text-white text-xs px-2 py-0.5 rounded-full border border-slate-600">
+                    2nd</div>
+            </div>
+            <div class="font-bold text-white">DataNinja</div>
+            <div class="text-sm text-yellow-400">12,400 XP</div>
+            <div class="h-24 w-20 bg-slate-700/50 rounded-t-lg mx-auto mt-2"></div>
+        </div>
+
+        <!-- 1st Place -->
+        <div class="text-center">
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-yellow-400 text-4xl animate-bounce">👑</div>
+            <div
+                class="w-24 h-24 mx-auto rounded-full bg-yellow-500/10 border-4 border-yellow-400 flex items-center justify-center text-4xl relative mb-2 shadow-[0_0_20px_rgba(250,204,21,0.3)]">
+                🥇
+                <div class="absolute -bottom-3 bg-yellow-500 text-slate-900 font-bold text-xs px-2 py-0.5 rounded-full">
+                    1st</div>
+            </div>
+            <div class="font-bold text-xl text-white">SherlockPy</div>
+            <div class="text-sm text-yellow-400 font-bold">15,600 XP</div>
+            <div
+                class="h-32 w-24 bg-gradient-to-t from-yellow-500/20 to-yellow-500/5 rounded-t-lg mx-auto mt-2 border-x border-t border-yellow-500/20">
+            </div>
+        </div>
+
+        <!-- 3rd Place -->
+        <div class="text-center">
+            <div
+                class="w-20 h-20 mx-auto rounded-full bg-orange-900/50 border-4 border-orange-700 flex items-center justify-center text-3xl relative mb-2">
+                🥉
+                <div
+                    class="absolute -bottom-2 bg-slate-800 text-white text-xs px-2 py-0.5 rounded-full border border-slate-600">
+                    3rd</div>
+            </div>
+            <div class="font-bold text-white">AlgorithmAce</div>
+            <div class="text-sm text-yellow-400">10,150 XP</div>
+            <div class="h-16 w-20 bg-slate-700/50 rounded-t-lg mx-auto mt-2"></div>
+        </div>
+    </div>
+
+    <!-- User Ranking -->
+    <div class="max-w-4xl mx-auto space-y-4 animate-fade-in-up delay-200">
+        <!-- Self Mock -->
+        <div class="glass p-4 rounded-xl flex items-center gap-6 border-l-4 border-cyan-500 bg-cyan-500/5">
+            <div class="font-bold text-xl text-cyan-400 w-8">#42</div>
+            <div class="w-10 h-10 rounded-full bg-cyan-900 flex items-center justify-center">You</div>
+            <div class="flex-1 font-bold text-white">Detective Rookie</div>
+            <div class="text-yellow-400 font-mono font-bold">2,450 XP</div>
+        </div>
+
+        <!-- List -->
+        {% for i in "123456789" %}
+        <div class="bg-slate-800/30 p-4 rounded-xl flex items-center gap-6 hover:bg-slate-800/50 transition-colors">
+            <div class="font-bold text-xl text-slate-500 w-8">#{{ forloop.counter|add:3 }}</div>
+            <div
+                class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-sm font-mono text-slate-300">
+                U-{{ forloop.counter }}
+            </div>
+            <div class="flex-1 font-medium text-slate-300">User_{{ forloop.counter }}</div>
+            <div class="text-slate-400 font-mono">9,000 XP</div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

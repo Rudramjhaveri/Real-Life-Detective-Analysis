@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Solve Case #{{ case.id }}{% endblock %}
+
+{% block content %}
+<div class="min-h-[80vh] flex items-center justify-center px-4 py-12">
+    <div class="glass p-8 md:p-12 rounded-3xl w-full max-w-2xl relative overflow-hidden animate-fade-in-up">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+            <div class="inline-block px-3 py-1 rounded bg-slate-800 text-slate-400 text-xs font-mono mb-3">Case ID: #{{
+                case.id }}</div>
+            <h1 class="text-3xl md:text-4xl font-bold font-heading mb-2">Submit Your Analysis</h1>
+            <p class="text-slate-400">Prove your theory, detective.</p>
+        </div>
+
+        <form method="post" class="space-y-8">
+            {% csrf_token %}
+
+            <!-- Question Block -->
+            <div class="space-y-4">
+                <div class="bg-slate-800/50 p-6 rounded-xl border border-white/5">
+                    <h3 class="font-bold text-lg mb-2 text-white">Question 1</h3>
+                    <p class="text-slate-300 leading-relaxed">Based on the sales data, which region showed the highest
+                        percentage decline in revenue during Q3 2023?</p>
+                </div>
+
+                <!-- Options (Mock MCQ) -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="answer" value="north-west" class="peer sr-only">
+                        <div
+                            class="p-4 rounded-xl border border-slate-700 bg-slate-800/30 hover:bg-slate-800 hover:border-cyan-500/50 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-500 transition-all flex items-center gap-3">
+                            <div
+                                class="w-5 h-5 rounded-full border-2 border-slate-500 peer-checked:border-cyan-400 peer-checked:bg-cyan-400 relative flex items-center justify-center">
+                            </div>
+                            <span
+                                class="text-slate-300 group-hover:text-white peer-checked:text-cyan-100 font-medium">North-West</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="answer" value="east-coast" class="peer sr-only">
+                        <div
+                            class="p-4 rounded-xl border border-slate-700 bg-slate-800/30 hover:bg-slate-800 hover:border-cyan-500/50 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-500 transition-all flex items-center gap-3">
+                            <div
+                                class="w-5 h-5 rounded-full border-2 border-slate-500 peer-checked:border-cyan-400 peer-checked:bg-cyan-400 relative flex items-center justify-center">
+                            </div>
+                            <span
+                                class="text-slate-300 group-hover:text-white peer-checked:text-cyan-100 font-medium">East-Coast</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="answer" value="south-west" class="peer sr-only">
+                        <div
+                            class="p-4 rounded-xl border border-slate-700 bg-slate-800/30 hover:bg-slate-800 hover:border-cyan-500/50 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-500 transition-all flex items-center gap-3">
+                            <div
+                                class="w-5 h-5 rounded-full border-2 border-slate-500 peer-checked:border-cyan-400 peer-checked:bg-cyan-400 relative flex items-center justify-center">
+                            </div>
+                            <span
+                                class="text-slate-300 group-hover:text-white peer-checked:text-cyan-100 font-medium">South-West</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer group">
+                        <input type="radio" name="answer" value="asia-pacific" class="peer sr-only">
+                        <div
+                            class="p-4 rounded-xl border border-slate-700 bg-slate-800/30 hover:bg-slate-800 hover:border-cyan-500/50 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-500 transition-all flex items-center gap-3">
+                            <div
+                                class="w-5 h-5 rounded-full border-2 border-slate-500 peer-checked:border-cyan-400 peer-checked:bg-cyan-400 relative flex items-center justify-center">
+                            </div>
+                            <span
+                                class="text-slate-300 group-hover:text-white peer-checked:text-cyan-100 font-medium">Asia-Pacific</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Conclusion Text -->
+            <div class="space-y-2">
+                <label for="conclusion" class="block font-bold text-white">Detective's Conclusion (Optional)</label>
+                <textarea id="conclusion" rows="4"
+                    class="w-full bg-slate-800/50 border border-slate-600 rounded-xl p-4 text-white outline-none focus:border-cyan-500 transition-colors"
+                    placeholder="Explain your reasoning..."></textarea>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-4 pt-4">
+                <a href="/case/{{ case.id }}"
+                    class="flex-1 py-3 rounded-xl border border-slate-600 hover:bg-slate-800 text-slate-300 text-center transition-all font-medium">
+                    Cancel
+                </a>
+                <button type="button" onclick="window.location.href='/result'"
+                    class="flex-[2] py-3 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold shadow-lg shadow-green-500/20 hover:shadow-green-500/40 transform hover:-translate-y-0.5 transition-all">
+                    Submit Final Report
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,296 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Real-Life Data Detective{% endblock %}</title>
+    {% tailwind_css %}
+
+    <!-- Fonts: Outfit (headings) and Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            /* Slate 900 */
+            color: #f8fafc;
+            /* Slate 50 */
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(51, 65, 85, 0.8);
+            border-radius: 3px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(71, 85, 105, 1);
+        }
+
+        /* Hide scrollbar for clean inputs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-hover:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(6, 182, 212, 0.3);
+            /* Cyan accent */
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Neon Text Glow */
+        .text-neon-cyan {
+            color: #22d3ee;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <!-- Background Grid Effect -->
+    <div class="fixed inset-0 z-[-1] opacity-20 pointer-events-none"
+        style="background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(to right, #334155 1px, transparent 1px); background-size: 40px 40px; mask-image: radial-gradient(circle, black 40%, transparent 70%);">
+    </div>
+
+    <!-- Navigation -->
+    {% block navbar %}
+    <nav class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md border-b border-white/5 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold font-heading tracking-wide flex items-center gap-2">
+                <span class="text-3xl inline-block">🔍</span>
+                <span>Data<span class="text-neon-cyan">Detective</span></span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/#how-it-works" class="text-slate-300 hover:text-white transition-colors">How it Works</a>
+                <a href="#demo" class="text-slate-300 hover:text-white transition-colors">Demo</a>
+                <a href="/leaderboard" class="text-slate-300 hover:text-white transition-colors">Leaderboard</a>
+            </div>
+            <div class="flex items-center gap-4">
+                {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}"
+                    class="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5">
+                    Dashboard
+                </a>
+                <a href="{% url 'profile' %}"
+                    class="w-10 h-10 rounded-full bg-slate-800 border border-white/10 overflow-hidden">
+                    {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}" class="w-full h-full object-cover">
+                    {% else %}
+                    {% load static %}
+                    <img src="{% static 'core/images/default_avatar.png' %}"
+                        class="w-full h-full object-cover opacity-80">
+                    {% endif %}
+                </a>
+                {% else %}
+                <a href="{% url 'login' %}" class="text-slate-300 hover:text-white font-medium">Login</a>
+                <a href="{% url 'register' %}"
+                    class="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-bold transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5">
+                    Start Solving
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+
+    <!-- Main Content -->
+    <main class="flex-grow {% block padding_top %}pt-24{% endblock %}">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% block footer %}
+    <footer class="border-t border-white/5 bg-slate-900/50 pt-16 pb-8 relative overflow-hidden backdrop-blur-sm">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <a href="/" class="text-2xl font-bold font-heading tracking-wide flex items-center gap-2 mb-6">
+                        <span class="text-3xl inline-block">🔍</span>
+                        <span>Data<span class="text-neon-cyan">Detective</span></span>
+                    </a>
+                    <p class="text-slate-400 leading-relaxed max-w-sm">
+                        The world's most immersive gamified data analytics platform. Master SQL, Python, and Excel by
+                        cracking real-world cases.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Explore</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="/#how-it-works" class="hover:text-cyan-400 transition-colors">How it Works</a></li>
+                        <li><a href="/leaderboard" class="hover:text-cyan-400 transition-colors">Leaderboard</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">For Schools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Connect</h4>
+                    <ul class="space-y-4 text-slate-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Discord Community</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Twitter / X</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition-colors">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
+                <p>&copy; 2026 Data Detective. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+    <!-- Custom Cursor Elements -->
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot fixed w-2 h-2 bg-cyan-400 rounded-full pointer-events-none opacity-0 transition-opacity duration-300 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_rgba(34,211,238,1)]"
+        style="z-index: 2147483647;">
+    </div>
+    <div class="cursor-outline fixed w-8 h-8 border border-cyan-500/50 rounded-full pointer-events-none opacity-0 transition-all duration-100 ease-out transform -translate-x-1/2 -translate-y-1/2"
+        style="z-index: 2147483647;">
+    </div>
+
+    <style>
+        /* Hide default cursor on non-touch devices */
+        @media (hover: hover) and (pointer: fine) {
+            body {
+                cursor: none;
+            }
+
+            a,
+            button,
+            input,
+            textarea,
+            select,
+            .cursor-pointer {
+                cursor: none;
+            }
+
+            /* Ensure cursor is visible */
+            .cursor-dot,
+            .cursor-outline {
+                opacity: 1 !important;
+            }
+        }
+
+        /* Hover state for cursor */
+        body.hovering .cursor-outline {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: rgba(6, 182, 212, 0.1);
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+        }
+    </style>
+
+    <!-- Custom Cursor Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+
+            // Only activate on desktop/mouse devices
+            if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+
+                // Movement
+                document.addEventListener('mousemove', (e) => {
+                    const posX = e.clientX;
+                    const posY = e.clientY;
+
+                    // Dot follows instantly
+                    cursorDot.style.left = `${posX}px`;
+                    cursorDot.style.top = `${posY}px`;
+
+                    // Outline follows with slight delay (animation handled by CSS transition)
+                    // We set the position directly, CSS 'transition' handles the smoothing
+                    cursorOutline.style.left = `${posX}px`;
+                    cursorOutline.style.top = `${posY}px`;
+                });
+
+                // Hover Effects
+                const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .cursor-pointer');
+
+                const addHoverClass = () => document.body.classList.add('hovering');
+                const removeHoverClass = () => document.body.classList.remove('hovering');
+
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', addHoverClass);
+                    el.addEventListener('mouseleave', removeHoverClass);
+                });
+
+                // Handle dynamic elements (optional, using MutationObserver if needed, but simple delegation here for now)
+                document.addEventListener('mouseover', (e) => {
+                    if (e.target.closest('a, button, input, textarea, select, .cursor-pointer')) {
+                        addHoverClass();
+                    } else {
+                        removeHoverClass();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
